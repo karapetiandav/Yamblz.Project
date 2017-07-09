@@ -5,4 +5,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!--Navigation drawer strings-->
+    <string name="navigation_weather_text">Погода</string>
+    <string name="navigation_settings_text">Настройки</string>
+    <string name="navigation_about_text">О приложении</string>
 </resources>
