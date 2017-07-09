@@ -18,6 +18,8 @@ import ru.karapetiandav.yamblzproject.fragments.WeatherFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setCheckedItem(R.id.nav_weather);
+        setTitle(navigationView.getMenu().findItem(R.id.nav_weather).getTitle());
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.container, WeatherFragment.newInstance())
+                .commit();
     }
 
     @Override
@@ -75,7 +84,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.container, fragment)
