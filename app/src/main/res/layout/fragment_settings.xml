@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Экран с настройками"
+        android:text="@string/settings_placeholder_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
 </FrameLayout>

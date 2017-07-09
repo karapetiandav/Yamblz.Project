@@ -1,10 +1,8 @@
 <resources>
-    <string name="app_name">Yamblz.Project</string>
+    <string name="app_name" translatable="false">Yamblz.Project</string>
 
     <string name="navigation_drawer_open">Открыть боковое меню</string>
     <string name="navigation_drawer_close">Закрыть боковое меню</string>
-
-    <string name="action_settings">Settings</string>
 
     <!--Navigation drawer strings-->
     <string name="navigation_weather_text">Погода</string>
@@ -13,4 +11,8 @@
 
     <!--AboutFragment strings-->
     <string name="text_about_app">Это учебное приложение разрабатываемое в рамках проекта \"Мобилизация\"</string>
+
+    <!--Placeholders-->
+    <string name="settings_placeholder_text">Экран с настройками</string>
+    <string name="weather_placeholder_text">Здесь скоро будет отображаться погода :)</string>
 </resources>

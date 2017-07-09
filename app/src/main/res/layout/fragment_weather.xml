@@ -17,7 +17,7 @@
         android:layout_below="@id/weather_placeholder"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="Здесь скоро будет отображаться погода :)"
+        android:text="@string/weather_placeholder_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
 </RelativeLayout>
