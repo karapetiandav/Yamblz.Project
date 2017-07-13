@@ -41,6 +41,10 @@ dependencies {
     compile "com.android.support:design:${supportVersion}"
     compile "com.android.support:support-v4:${supportVersion}"
 
+    // ButterKnife
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+
     // Test
     testCompile 'junit:junit:4.12'
 }
