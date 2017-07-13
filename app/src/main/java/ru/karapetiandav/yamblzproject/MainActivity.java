@@ -45,13 +45,14 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.setCheckedItem(R.id.nav_weather);
-        setTitle(navigationView.getMenu().findItem(R.id.nav_weather).getTitle());
-
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.container, WeatherFragment.newInstance())
-                .commit();
+        if (savedInstanceState == null) {
+            navigationView.setCheckedItem(R.id.nav_weather);
+            setTitle(navigationView.getMenu().findItem(R.id.nav_weather).getTitle());
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.container, WeatherFragment.newInstance())
+                    .commit();
+        }
     }
 
     @Override
