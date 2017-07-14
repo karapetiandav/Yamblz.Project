@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'YandexProject'
-            keyPassword 'davmod2017'
-            storeFile file('C:/Users/davit/Documents/keystore.jks')
-            storePassword 'ij1Ak53U'
+            keyAlias 'key0'
+            keyPassword '1234567890'
+            storeFile file('C:/Users/davit/AndroidStudioProjects/Yamblz.Project/keystore/release.jks')
+            storePassword '1234567890'
         }
     }
     compileSdkVersion 26
