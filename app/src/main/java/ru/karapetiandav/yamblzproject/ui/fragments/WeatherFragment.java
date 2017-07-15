@@ -1,4 +1,4 @@
-package ru.karapetiandav.yamblzproject.fragments;
+package ru.karapetiandav.yamblzproject.ui.fragments;
 
 
 import android.os.Bundle;
@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 
 import ru.karapetiandav.yamblzproject.R;
 
-public class AboutFragment extends Fragment {
+public class WeatherFragment extends Fragment {
 
-    public AboutFragment() {
+    public WeatherFragment() {
         // Required empty public constructor
     }
 
-    public static AboutFragment newInstance() {
-        AboutFragment fragment = new AboutFragment();
+    public static WeatherFragment newInstance() {
+        WeatherFragment fragment = new WeatherFragment();
 
         return fragment;
     }
@@ -25,7 +25,7 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        return inflater.inflate(R.layout.fragment_weather, container, false);
     }
 
 }

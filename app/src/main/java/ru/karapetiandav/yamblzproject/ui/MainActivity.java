@@ -1,4 +1,4 @@
-package ru.karapetiandav.yamblzproject;
+package ru.karapetiandav.yamblzproject.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,9 +14,10 @@ import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ru.karapetiandav.yamblzproject.fragments.AboutFragment;
-import ru.karapetiandav.yamblzproject.fragments.SettingsFragment;
-import ru.karapetiandav.yamblzproject.fragments.WeatherFragment;
+import ru.karapetiandav.yamblzproject.R;
+import ru.karapetiandav.yamblzproject.ui.fragments.AboutFragment;
+import ru.karapetiandav.yamblzproject.ui.fragments.SettingsFragment;
+import ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
