@@ -1,6 +1,7 @@
 package ru.karapetiandav.yamblzproject.ui.fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,9 +30,17 @@ public class WeatherFragment extends Fragment {
 
     // TODO: Поменяйте перед использованием на свой API ключ
     public static final String API_KEY = "1fd56ebafdb3bec85d4b1ac5ae8529eb";
+    public static final String DATE = "date";
+    public static final String TEMP = "temp";
+    public static final String HUMIDITY = "humidity";
+    public static final String PRESSURE = "pressure";
+    public static final String WEATHER_ID = "weather_id";
     private static final String TAG = WeatherFragment.class.getSimpleName();
     @Inject
     Retrofit retrofit;
+
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @BindView(R.id.temp_degree)
     TextView tempDegreeTextView;
@@ -88,18 +97,42 @@ public class WeatherFragment extends Fragment {
                         String temp = String.valueOf((int) Math.floor(data.getMain().getTemp() - 278)) + "°";
                         String humidity = String.valueOf(data.getMain().getHumidity()) + "%";
                         String pressure = String.valueOf(data.getMain().getPressure());
+                        int weatherId = data.getWeather().get(0).getId();
 
                         todayDateTextView.setText(date);
                         tempDegreeTextView.setText(temp);
                         pressureTextView.setText(pressure);
                         humidityTextView.setText(humidity);
 
-                        weatherStatusImage.setImageResource(Utils.getIconResourceForWeatherCondition(data.getWeather().get(0).getId()));
+                        weatherStatusImage.setImageResource(Utils.getIconResourceForWeatherCondition(weatherId));
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(DATE, date);
+                        editor.putString(TEMP, temp);
+                        editor.putString(HUMIDITY, humidity);
+                        editor.putString(PRESSURE, pressure);
+                        editor.putInt(WEATHER_ID, weatherId);
+                        editor.apply();
                     }
 
                     @Override
                     public void onFailure(Call<WeatherData> call, Throwable t) {
-                        Toast.makeText(getActivity(), "Не удалось получить погодные сводки", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Загружены данные из памяти", Toast.LENGTH_SHORT).show();
+
+                        if (sharedPreferences.contains(DATE)) {
+                            String date = sharedPreferences.getString(DATE, "");
+                            String temp = sharedPreferences.getString(TEMP, "");
+                            String humidity = sharedPreferences.getString(HUMIDITY, "");
+                            String pressure = sharedPreferences.getString(PRESSURE, "");
+                            int weatherId = sharedPreferences.getInt(WEATHER_ID, 0);
+
+                            todayDateTextView.setText(date);
+                            tempDegreeTextView.setText(temp);
+                            pressureTextView.setText(pressure);
+                            humidityTextView.setText(humidity);
+
+                            weatherStatusImage.setImageResource(Utils.getIconResourceForWeatherCondition(weatherId));
+                        }
                     }
                 }
         );
