@@ -15,4 +15,7 @@
     <!--Placeholders-->
     <string name="settings_placeholder_text">Экран с настройками</string>
     <string name="weather_placeholder_text">Здесь скоро будет отображаться погода :)</string>
+
+    <!--WeatherFragment-->
+    <string name="weather_fragment_today">Сегодня</string>
 </resources>
