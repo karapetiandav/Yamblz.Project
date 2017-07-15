@@ -6,13 +6,6 @@
     android:background="@drawable/weather_fragment_gradient"
     tools:context=".ui.fragments.WeatherFragment">
 
-    <ImageView
-        android:id="@+id/weather_placeholder"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/weather_placeholder" />
-
     <TextView
         android:id="@+id/today_date"
         android:layout_width="wrap_content"
