@@ -22,10 +22,6 @@ public class App extends Application {
     private String baseUrl;
     private Retrofit retrofit;
 
-    public static WeatherApi getWeatherApi() {
-        return weatherApi;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,6 +40,11 @@ public class App extends Application {
                 .build();
 
         weatherApi = retrofit.create(WeatherApi.class);
+
+        networkComponent = DaggerNetworkComponent.builder()
+                .appModule(new AppModule(this))
+                .networkModule(new NetworkModule("http://api.openweathermap.org/"))
+                .build();
     }
 
     public NetworkComponent getNetworkComponent() {
