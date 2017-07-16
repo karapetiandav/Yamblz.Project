@@ -1,10 +1,10 @@
 package ru.karapetiandav.yamblzproject.ui.fragments;
 
 
+import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,9 +94,9 @@ public class WeatherFragment extends Fragment {
                     public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
                         WeatherData data = response.body();
                         String date = Utils.convertUnixTimeToString(data.getDt(), getContext());
-                        String temp = String.valueOf((int) Math.floor(data.getMain().getTemp() - 278)) + "°";
+                        String temp = String.valueOf((int) Math.floor(data.getMain().getTemp() - 273)) + "°";
                         String humidity = String.valueOf(data.getMain().getHumidity()) + "%";
-                        String pressure = String.valueOf(data.getMain().getPressure());
+                        String pressure = String.valueOf(data.getMain().getPressure() * 0.750);
                         int weatherId = data.getWeather().get(0).getId();
 
                         todayDateTextView.setText(date);
