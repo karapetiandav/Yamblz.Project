@@ -4,6 +4,7 @@ package ru.karapetiandav.yamblzproject.ui.fragments;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +72,7 @@ public class WeatherFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ((App) getActivity().getApplication()).getNetworkComponent().inject(this);
-        SyncWeatherJob.schedulePeriodicJob();
+        SyncWeatherJob.schedulePeriodicJob(PreferenceManager.getDefaultSharedPreferences(getActivity()));
     }
 
     @Override
@@ -93,7 +94,7 @@ public class WeatherFragment extends Fragment {
                     @Override
                     public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
                         WeatherData data = response.body();
-                        String date = Utils.convertUnixTimeToString(data.getDt(), getContext());
+                        String date = Utils.convertUnixTimeToString(data.getDt(), getActivity());
                         String temp = String.valueOf((int) Math.floor(data.getMain().getTemp() - 273)) + "°";
                         String humidity = String.valueOf(data.getMain().getHumidity()) + "%";
                         String pressure = String.valueOf(data.getMain().getPressure() * 0.750);

@@ -29,9 +29,12 @@ public class SyncWeatherJob extends Job {
 
     public static final String TAG = "Sync_Weather_Job";
 
-    public static void schedulePeriodicJob() {
+    public static void schedulePeriodicJob(SharedPreferences sharedPreferences) {
+        int minutes = Integer.parseInt(sharedPreferences.getString("pref_update_time", "180"));
         int jobId = new JobRequest.Builder(SyncWeatherJob.TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(60), TimeUnit.MINUTES.toMillis(5))
+                .setPeriodic(TimeUnit.MINUTES.toMillis(minutes), TimeUnit.MINUTES.toMillis(10))
+                .setUpdateCurrent(true)
+                .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
                 .setPersisted(true)
                 .build()
                 .schedule();

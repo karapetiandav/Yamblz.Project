@@ -18,4 +18,22 @@
 
     <!--WeatherFragment-->
     <string name="weather_fragment_today">Сегодня</string>
+
+    <!--Preferences-->
+    <string name="pref_update_time_title">Частота обновлений</string>
+    <string-array name="pref_update_time_entries">
+        <item>1 час</item>
+        <item>3 часа</item>
+        <item>6 часов</item>
+        <item>12 часов</item>
+        <item>24 часа</item>
+    </string-array>
+    <string-array name="pref_update_time_values">
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>720</item>
+        <item>1440</item>
+    </string-array>
+    <string name="pref_update_time_default">24 часа</string>
 </resources>
