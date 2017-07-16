@@ -1,9 +1,9 @@
-package ru.karapetiandav.yamblzproject;
+package ru.karapetiandav.yamblzproject.ui;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,9 +14,10 @@ import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ru.karapetiandav.yamblzproject.fragments.AboutFragment;
-import ru.karapetiandav.yamblzproject.fragments.SettingsFragment;
-import ru.karapetiandav.yamblzproject.fragments.WeatherFragment;
+import ru.karapetiandav.yamblzproject.R;
+import ru.karapetiandav.yamblzproject.ui.fragments.AboutFragment;
+import ru.karapetiandav.yamblzproject.ui.fragments.SettingsFragment;
+import ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private FragmentManager fragmentManager = getFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
