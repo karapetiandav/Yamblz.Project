@@ -22,14 +22,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import ru.karapetiandav.yamblzproject.App;
 import ru.karapetiandav.yamblzproject.R;
+import ru.karapetiandav.yamblzproject.job.SyncWeatherJob;
 import ru.karapetiandav.yamblzproject.model.WeatherData;
 import ru.karapetiandav.yamblzproject.retrofit.WeatherApi;
 import ru.karapetiandav.yamblzproject.utils.Utils;
 
 public class WeatherFragment extends Fragment {
 
-    // TODO: Поменяйте перед использованием на свой API ключ
-    public static final String API_KEY = "1fd56ebafdb3bec85d4b1ac5ae8529eb";
     public static final String DATE = "date";
     public static final String TEMP = "temp";
     public static final String HUMIDITY = "humidity";
@@ -72,6 +71,7 @@ public class WeatherFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ((App) getActivity().getApplication()).getNetworkComponent().inject(this);
+        SyncWeatherJob.schedulePeriodicJob();
     }
 
     @Override
@@ -88,7 +88,7 @@ public class WeatherFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        retrofit.create(WeatherApi.class).getWeatherData("Moscow", API_KEY).enqueue(
+        retrofit.create(WeatherApi.class).getWeatherData("Moscow", App.API_KEY).enqueue(
                 new Callback<WeatherData>() {
                     @Override
                     public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
