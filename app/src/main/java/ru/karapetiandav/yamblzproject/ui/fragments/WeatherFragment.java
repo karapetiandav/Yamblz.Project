@@ -4,7 +4,6 @@ package ru.karapetiandav.yamblzproject.ui.fragments;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +34,11 @@ public class WeatherFragment extends Fragment {
     public static final String HUMIDITY = "humidity";
     public static final String PRESSURE = "pressure";
     public static final String WEATHER_ID = "weather_id";
+
     private static final String TAG = WeatherFragment.class.getSimpleName();
     @Inject
     Retrofit retrofit;
 
-    @Inject
     SharedPreferences sharedPreferences;
 
     @BindView(R.id.temp_degree)
@@ -72,7 +71,9 @@ public class WeatherFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ((App) getActivity().getApplication()).getNetworkComponent().inject(this);
-        SyncWeatherJob.schedulePeriodicJob(PreferenceManager.getDefaultSharedPreferences(getActivity()));
+
+        sharedPreferences = App.getSharedPreferences();
+        SyncWeatherJob.schedulePeriodicJob(sharedPreferences);
     }
 
     @Override
