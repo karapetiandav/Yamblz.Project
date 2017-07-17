@@ -35,5 +35,5 @@
         <item>720</item>
         <item>1440</item>
     </string-array>
-    <string name="pref_update_time_default">24 часа</string>
+    <string name="pref_update_time_default">180</string>
 </resources>
