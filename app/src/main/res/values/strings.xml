@@ -18,6 +18,11 @@
 
     <!--WeatherFragment-->
     <string name="weather_fragment_today">Сегодня</string>
+    <string name="weather_fragment_temp">Температура</string>
+    <string name="weather_fragment_pressure">Давление</string>
+    <string name="weather_fragment_humidity">Влажность</string>
+    <string name="pressure_measure_unit">мм. рт. ст.</string>
+    <string name="temp_measure_unit">°C</string>
 
     <!--Preferences-->
     <string name="pref_update_time_title">Частота обновлений</string>
@@ -35,5 +40,5 @@
         <item>720</item>
         <item>1440</item>
     </string-array>
-    <string name="pref_update_time_default">180</string>
+    <string name="pref_update_time_default" translatable="false">180</string>
 </resources>

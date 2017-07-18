@@ -17,6 +17,7 @@ import ru.karapetiandav.yamblzproject.retrofit.WeatherApi;
 
 public class App extends Application {
 
+    public static final String CITY = "Moscow";
     // TODO: Поменяйте перед использованием на свой API ключ
     public static final String API_KEY = "1fd56ebafdb3bec85d4b1ac5ae8529eb";
     private static WeatherApi weatherApi;
