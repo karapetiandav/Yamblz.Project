@@ -2,7 +2,6 @@ package ru.karapetiandav.yamblzproject.ui.fragments;
 
 
 import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,35 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import ru.karapetiandav.yamblzproject.App;
 import ru.karapetiandav.yamblzproject.R;
-import ru.karapetiandav.yamblzproject.job.SyncWeatherJob;
 import ru.karapetiandav.yamblzproject.model.WeatherData;
-import ru.karapetiandav.yamblzproject.retrofit.WeatherApi;
+import ru.karapetiandav.yamblzproject.mvp.HolderFragment;
+import ru.karapetiandav.yamblzproject.mvp.WeatherPresenter;
 import ru.karapetiandav.yamblzproject.utils.Utils;
 
-public class WeatherFragment extends Fragment {
+public class WeatherFragment extends Fragment implements WeatherPresenter.WeatherView {
 
-    public static final String DATE = "date";
-    public static final String TEMP = "temp";
-    public static final String HUMIDITY = "humidity";
-    public static final String PRESSURE = "pressure";
-    public static final String WEATHER_ID = "weather_id";
+    private static final String HOLDER_TAG = "weather_presenter";
 
-    private static final String TAG = WeatherFragment.class.getSimpleName();
-
-    @Inject
-    Retrofit retrofit;
-
-    SharedPreferences sharedPreferences;
+    public WeatherPresenter weatherPresenter;
 
     @BindView(R.id.temp_degree)
     TextView tempDegreeTextView;
@@ -70,16 +53,27 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        HolderFragment<WeatherPresenter> holderFragment =
+                (HolderFragment<WeatherPresenter>) getFragmentManager().findFragmentByTag(HOLDER_TAG);
+        if (holderFragment == null) {
+            holderFragment = new HolderFragment<>();
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(new HolderFragment<WeatherPresenter>(), HOLDER_TAG)
+                    .commit();
+            weatherPresenter = holderFragment.getPresenter();
+            if (weatherPresenter == null) {
+                weatherPresenter = new WeatherPresenter();
+                holderFragment.setPresenter(weatherPresenter);
+            }
+            weatherPresenter.onAttach(this);
+        }
 
-        ((App) getActivity().getApplication()).getNetworkComponent().inject(this);
-
-        sharedPreferences = App.getSharedPreferences();
-        SyncWeatherJob.schedulePeriodicJob(sharedPreferences);
+        weatherPresenter.makeRequest();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         ButterKnife.bind(this, view);
@@ -88,56 +82,39 @@ public class WeatherFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void showWeather(WeatherData data) {
+        String date = Utils.convertUnixTimeToString(data.getDt(), getActivity());
+        String temp = Utils.formatTemperature(getActivity(), data.getMain().getTemp());
+        String humidity = Utils.formatHumidity(getActivity(), data.getMain().getHumidity());
+        String pressure = Utils.formatPressure(getActivity(), data.getMain().getPressure());
+        int weatherId = data.getWeather().get(0).getId();
 
-        retrofit.create(WeatherApi.class).getWeatherData("Moscow", App.API_KEY).enqueue(
-                new Callback<WeatherData>() {
-                    @Override
-                    public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
-                        WeatherData data = response.body();
-                        String date = Utils.convertUnixTimeToString(data.getDt(), getActivity());
-                        String temp = Utils.formatTemperature(getActivity(), data.getMain().getTemp());
-                        String humidity = Utils.formatHumidity(getActivity(), data.getMain().getHumidity());
-                        String pressure = Utils.formatPressure(getActivity(), data.getMain().getPressure());
-                        int weatherId = data.getWeather().get(0).getId();
+        todayDateTextView.setText(date);
+        tempDegreeTextView.setText(temp);
+        pressureTextView.setText(pressure);
+        humidityTextView.setText(humidity);
 
-                        todayDateTextView.setText(date);
-                        tempDegreeTextView.setText(temp);
-                        pressureTextView.setText(pressure);
-                        humidityTextView.setText(humidity);
+        weatherStatusImage.setImageResource(Utils.getIconResourceForWeatherCondition(weatherId));
+    }
 
-                        weatherStatusImage.setImageResource(Utils.getIconResourceForWeatherCondition(weatherId));
+    @Override
+    public void showWeather(String date, String temp, String humidity, String pressure, int weatherId) {
+        todayDateTextView.setText(date);
+        tempDegreeTextView.setText(temp);
+        pressureTextView.setText(pressure);
+        humidityTextView.setText(humidity);
 
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(DATE, date);
-                        editor.putString(TEMP, temp);
-                        editor.putString(HUMIDITY, humidity);
-                        editor.putString(PRESSURE, pressure);
-                        editor.putInt(WEATHER_ID, weatherId);
-                        editor.apply();
-                    }
+        weatherStatusImage.setImageResource(Utils.getIconResourceForWeatherCondition(weatherId));
+    }
 
-                    @Override
-                    public void onFailure(Call<WeatherData> call, Throwable t) {
-                        Toast.makeText(getActivity(), "Загружены данные из памяти", Toast.LENGTH_SHORT).show();
+    @Override
+    public void showDataFromMemoryToast() {
+        Toast.makeText(getActivity(), "Загружены данные из памяти", Toast.LENGTH_SHORT).show();
+    }
 
-                        if (sharedPreferences.contains(DATE)) {
-                            String date = sharedPreferences.getString(DATE, "");
-                            String temp = sharedPreferences.getString(TEMP, "");
-                            String humidity = sharedPreferences.getString(HUMIDITY, "");
-                            String pressure = sharedPreferences.getString(PRESSURE, "");
-                            int weatherId = sharedPreferences.getInt(WEATHER_ID, 0);
-
-                            todayDateTextView.setText(date);
-                            tempDegreeTextView.setText(temp);
-                            pressureTextView.setText(pressure);
-                            humidityTextView.setText(humidity);
-
-                            weatherStatusImage.setImageResource(Utils.getIconResourceForWeatherCondition(weatherId));
-                        }
-                    }
-                }
-        );
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        weatherPresenter.onDetach();
     }
 }
