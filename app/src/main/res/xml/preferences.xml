@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="3"
+        android:entries="@array/pref_update_time_entries"
+        android:entryValues="@array/pref_update_time_values"
+        android:key="pref_update_time"
+        android:title="@string/pref_update_time_title" />
+</PreferenceScreen>
