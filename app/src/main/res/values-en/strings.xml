@@ -11,4 +11,22 @@
     <string name="text_about_app">This training application is developed in the project \"Mobilization\"</string>
     <string name="settings_placeholder_text">Settings screen</string>
     <string name="weather_placeholder_text">Weather coming soon :)</string>
+
+    <!--Preferences-->
+    <string name="pref_update_time_title">Update frequency</string>
+    <string-array name="pref_update_time_entries">
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+        <item>24 hours</item>
+    </string-array>
+
+    <!--WeatherFragment-->
+    <string name="pressure_measure_unit">hpa</string>
+    <string name="temp_measure_unit">°F</string>
+    <string name="weather_fragment_humidity">Humidity</string>
+    <string name="weather_fragment_pressure">Pressure</string>
+    <string name="weather_fragment_temp">Temperature</string>
+    <string name="weather_fragment_today">Today</string>
 </resources>

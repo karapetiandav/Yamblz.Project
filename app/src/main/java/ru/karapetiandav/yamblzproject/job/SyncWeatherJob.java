@@ -1,7 +1,6 @@
 package ru.karapetiandav.yamblzproject.job;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -18,6 +17,7 @@ import ru.karapetiandav.yamblzproject.model.WeatherData;
 import ru.karapetiandav.yamblzproject.utils.Utils;
 
 import static ru.karapetiandav.yamblzproject.App.API_KEY;
+import static ru.karapetiandav.yamblzproject.App.CITY;
 import static ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment.DATE;
 import static ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment.HUMIDITY;
 import static ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment.PRESSURE;
@@ -43,18 +43,17 @@ public class SyncWeatherJob extends Job {
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        App.getWeatherApi().getWeatherData("Moscow", API_KEY).enqueue(new Callback<WeatherData>() {
+        App.getWeatherApi().getWeatherData(CITY, API_KEY).enqueue(new Callback<WeatherData>() {
             @Override
             public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
                 WeatherData data = response.body();
                 String date = Utils.convertUnixTimeToString(data.getDt(), getContext());
-                String temp = String.valueOf((int) Math.floor(data.getMain().getTemp() - 278)) + "°";
-                String humidity = String.valueOf(data.getMain().getHumidity()) + "%";
-                String pressure = String.valueOf(data.getMain().getPressure());
+                String temp = Utils.formatTemperature(getContext(), data.getMain().getTemp());
+                String humidity = Utils.formatHumidity(getContext(), data.getMain().getHumidity());
+                String pressure = Utils.formatPressure(getContext(), data.getMain().getPressure());
                 int weatherId = data.getWeather().get(0).getId();
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor editor = App.getSharedPreferences().edit();
                 editor.putString(DATE, date);
                 editor.putString(TEMP, temp);
                 editor.putString(HUMIDITY, humidity);
@@ -69,6 +68,6 @@ public class SyncWeatherJob extends Job {
             }
         });
 
-        return Result.FAILURE;
+        return Result.SUCCESS;
     }
 }
