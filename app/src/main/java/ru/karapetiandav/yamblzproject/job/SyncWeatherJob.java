@@ -17,12 +17,7 @@ import ru.karapetiandav.yamblzproject.model.WeatherData;
 import ru.karapetiandav.yamblzproject.utils.Utils;
 
 import static ru.karapetiandav.yamblzproject.App.API_KEY;
-import static ru.karapetiandav.yamblzproject.App.CITY;
-import static ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment.DATE;
-import static ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment.HUMIDITY;
-import static ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment.PRESSURE;
-import static ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment.TEMP;
-import static ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment.WEATHER_ID;
+import static ru.karapetiandav.yamblzproject.mvp.WeatherPresenter.CITY;
 
 
 public class SyncWeatherJob extends Job {
@@ -53,13 +48,7 @@ public class SyncWeatherJob extends Job {
                 String pressure = Utils.formatPressure(getContext(), data.getMain().getPressure());
                 int weatherId = data.getWeather().get(0).getId();
 
-                SharedPreferences.Editor editor = App.getSharedPreferences().edit();
-                editor.putString(DATE, date);
-                editor.putString(TEMP, temp);
-                editor.putString(HUMIDITY, humidity);
-                editor.putString(PRESSURE, pressure);
-                editor.putInt(WEATHER_ID, weatherId);
-                editor.apply();
+                Utils.saveCurrentWeatherInPreference(date, temp, humidity, pressure, weatherId);
             }
 
             @Override

@@ -2,13 +2,21 @@ package ru.karapetiandav.yamblzproject.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import ru.karapetiandav.yamblzproject.App;
 import ru.karapetiandav.yamblzproject.R;
+
+import static ru.karapetiandav.yamblzproject.mvp.WeatherPresenter.DATE;
+import static ru.karapetiandav.yamblzproject.mvp.WeatherPresenter.HUMIDITY;
+import static ru.karapetiandav.yamblzproject.mvp.WeatherPresenter.PRESSURE;
+import static ru.karapetiandav.yamblzproject.mvp.WeatherPresenter.TEMP;
+import static ru.karapetiandav.yamblzproject.mvp.WeatherPresenter.WEATHER_ID;
 
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
@@ -76,5 +84,15 @@ public class Utils {
             return R.drawable.art_clouds;
         }
         return -1;
+    }
+
+    public static void saveCurrentWeatherInPreference(String date, String temp, String humidity, String pressure, int weatherId) {
+        SharedPreferences.Editor editor = App.getSharedPreferences().edit();
+        editor.putString(DATE, date);
+        editor.putString(TEMP, temp);
+        editor.putString(HUMIDITY, humidity);
+        editor.putString(PRESSURE, pressure);
+        editor.putInt(WEATHER_ID, weatherId);
+        editor.apply();
     }
 }
