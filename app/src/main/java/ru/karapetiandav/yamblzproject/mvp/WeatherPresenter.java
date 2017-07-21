@@ -2,6 +2,7 @@ package ru.karapetiandav.yamblzproject.mvp;
 
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +19,10 @@ public class WeatherPresenter extends IPresenter<WeatherPresenter.WeatherView> {
     public static final String HUMIDITY = "humidity";
     public static final String PRESSURE = "pressure";
     public static final String WEATHER_ID = "weather_id";
+    private static final String TAG = WeatherPresenter.class.getSimpleName();
     private SharedPreferences sharedPreferences;
+
+    private Call<WeatherData> call;
 
     public WeatherPresenter() {
         sharedPreferences = App.getSharedPreferences();
@@ -28,6 +32,8 @@ public class WeatherPresenter extends IPresenter<WeatherPresenter.WeatherView> {
     @Override
     public void onAttach(WeatherView view) {
         super.onAttach(view);
+        Log.d(TAG, "onAttach: ");
+        makeRequest();
     }
 
     @Override
@@ -38,6 +44,13 @@ public class WeatherPresenter extends IPresenter<WeatherPresenter.WeatherView> {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopRequest();
+    }
+
+    private boolean stopRequest() {
+        call.cancel();
+
+        return call.isCanceled();
     }
 
     @Nullable
@@ -47,7 +60,8 @@ public class WeatherPresenter extends IPresenter<WeatherPresenter.WeatherView> {
     }
 
     public void makeRequest() {
-        App.getWeatherApi().getWeatherData(CITY, App.API_KEY).enqueue(
+        call = App.getWeatherApi().getWeatherData(CITY, App.API_KEY);
+        call.enqueue(
                 new Callback<WeatherData>() {
                     @Override
                     public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {

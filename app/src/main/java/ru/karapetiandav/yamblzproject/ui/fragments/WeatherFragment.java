@@ -61,15 +61,14 @@ public class WeatherFragment extends Fragment implements WeatherPresenter.Weathe
                     .beginTransaction()
                     .add(new HolderFragment<WeatherPresenter>(), HOLDER_TAG)
                     .commit();
-            weatherPresenter = holderFragment.getPresenter();
-            if (weatherPresenter == null) {
-                weatherPresenter = new WeatherPresenter();
-                holderFragment.setPresenter(weatherPresenter);
-            }
-            weatherPresenter.onAttach(this);
+        }
+        weatherPresenter = holderFragment.getPresenter();
+        if (weatherPresenter == null) {
+            weatherPresenter = new WeatherPresenter();
+            holderFragment.setPresenter(weatherPresenter);
         }
 
-        weatherPresenter.makeRequest();
+        weatherPresenter.onAttach(this);
     }
 
     @Override
