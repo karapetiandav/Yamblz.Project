@@ -8,6 +8,9 @@ import com.evernote.android.job.JobManager;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.karapetiandav.yamblzproject.di.component.AppComponent;
+import ru.karapetiandav.yamblzproject.di.component.DaggerAppComponent;
+import ru.karapetiandav.yamblzproject.di.module.AppModule;
 import ru.karapetiandav.yamblzproject.job.SyncWeatherJobCreator;
 import ru.karapetiandav.yamblzproject.retrofit.WeatherApi;
 
@@ -19,6 +22,8 @@ public class App extends Application {
     private static SharedPreferences sharedPreferences;
     private String baseUrl;
     private Retrofit retrofit;
+
+    public static AppComponent appComponent;
 
     public static WeatherApi getWeatherApi() {
         return weatherApi;
@@ -32,6 +37,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        appComponent = buildComponent();
+
         baseUrl = "http://api.openweathermap.org/";
 
         JobManager.create(this).addJobCreator(new SyncWeatherJobCreator());
@@ -44,5 +51,15 @@ public class App extends Application {
         weatherApi = retrofit.create(WeatherApi.class);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    private AppComponent buildComponent() {
+        return DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+    }
+
+    public static AppComponent getAppComponent() {
+        return appComponent;
     }
 }
