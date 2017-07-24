@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.widget.RxTextView;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -21,12 +25,13 @@ import ru.karapetiandav.yamblzproject.App;
 import ru.karapetiandav.yamblzproject.R;
 import ru.karapetiandav.yamblzproject.di.module.CitiesModule;
 import ru.karapetiandav.yamblzproject.ui.cities.adapter.CitiesAdapter;
+import ru.karapetiandav.yamblzproject.ui.cities.model.CityViewModel;
 import ru.karapetiandav.yamblzproject.ui.cities.presenter.CitiesPresenter;
 
 public class CitiesFragment extends Fragment implements CitiesView {
 
     @Inject CitiesAdapter adapter;
-    @Inject CitiesPresenter presenter;
+    @Inject CitiesPresenter<CitiesView> presenter;
 
     @BindView(R.id.input_city_edittext) EditText inputCityET;
     @BindView(R.id.cities_recyclerview) RecyclerView recyclerView;
@@ -52,14 +57,46 @@ public class CitiesFragment extends Fragment implements CitiesView {
         ButterKnife.bind(this, view);
         App.getAppComponent().plusCitiesComponent(new CitiesModule()).inject(this);
         setupRecyclerView();
+        presenter.onAttach(this);
+        presenter.observeInputChanges(RxTextView.textChanges(inputCityET).skipInitialValue());
         return view;
     }
 
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(
-                new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter.setOnItemClickListener(position -> presenter.onCityClick(position));
         recyclerView.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void showCities(List<CityViewModel> cities) {
+        helloTV.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        adapter.changeDataSet(cities);
+    }
+
+    @Override
+    public void showProgress() {
+        recyclerView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.onDetach();
+    }
+
+    @Override
+    public void showNoMatches() {
+        recyclerView.setVisibility(View.GONE);
+        noResultsTV.setVisibility(View.VISIBLE);
     }
 }

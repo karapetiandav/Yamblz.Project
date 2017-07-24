@@ -1,4 +1,4 @@
-package ru.karapetiandav.yamblzproject.ui.base;
+package ru.karapetiandav.yamblzproject.ui.base.presenter;
 
 
 public class BasePresenter<V> implements Presenter<V> {
@@ -15,8 +15,4 @@ public class BasePresenter<V> implements Presenter<V> {
         view = null;
     }
 
-    @Override
-    public boolean isAttached() {
-        return view != null;
-    }
 }

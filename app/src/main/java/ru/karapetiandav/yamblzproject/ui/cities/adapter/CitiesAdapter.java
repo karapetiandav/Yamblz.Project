@@ -13,7 +13,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.karapetiandav.yamblzproject.R;
-import ru.karapetiandav.yamblzproject.ui.base.OnItemClickListener;
 import ru.karapetiandav.yamblzproject.ui.cities.model.CityViewModel;
 
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesViewHolder> {
@@ -57,5 +56,9 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
             itemView.setOnClickListener(view ->
                     onItemClickListener.onItemClick(getAdapterPosition()));
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }
