@@ -8,6 +8,7 @@
     <string name="navigation_weather_text">Погода</string>
     <string name="navigation_settings_text">Настройки</string>
     <string name="navigation_about_text">О приложении</string>
+    <string name="navigation_city_selection">Выбор города</string>
 
     <!--AboutFragment strings-->
     <string name="text_about_app">Это учебное приложение разрабатываемое в рамках проекта \"Мобилизация\"</string>
@@ -41,4 +42,8 @@
         <item>1440</item>
     </string-array>
     <string name="pref_update_time_default" translatable="false">180</string>
+
+    <!--cities-->
+    <string name="enter_city_name">Введите название города</string>
+    <string name="no_cities_found">Не найдено ни одного города</string>
 </resources>

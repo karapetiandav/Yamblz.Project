@@ -29,4 +29,7 @@
     <string name="weather_fragment_pressure">Pressure</string>
     <string name="weather_fragment_temp">Temperature</string>
     <string name="weather_fragment_today">Today</string>
+    <string name="navigation_city_selection">City selection</string>
+    <string name="enter_city_name">Enter city name</string>
+    <string name="no_cities_found">Did not match any cities</string>
 </resources>

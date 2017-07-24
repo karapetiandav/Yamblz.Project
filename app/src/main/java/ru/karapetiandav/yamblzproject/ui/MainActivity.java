@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.karapetiandav.yamblzproject.R;
+import ru.karapetiandav.yamblzproject.ui.cities.view.CitiesFragment;
 import ru.karapetiandav.yamblzproject.ui.fragments.AboutFragment;
 import ru.karapetiandav.yamblzproject.ui.fragments.SettingsFragment;
 import ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment;
@@ -74,12 +75,18 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_weather) {
-            fragmentClass = WeatherFragment.class;
-        } else if (id == R.id.nav_settings) {
-            fragmentClass = SettingsFragment.class;
-        } else if (id == R.id.nav_about) {
-            fragmentClass = AboutFragment.class;
+        switch (id) {
+            case R.id.nav_weather:
+                fragmentClass = WeatherFragment.class;
+                break;
+            case R.id.nav_settings:
+                fragmentClass = SettingsFragment.class;
+                break;
+            case R.id.nav_about:
+                fragmentClass = AboutFragment.class;
+                break;
+            case R.id.nav_cities:
+                fragmentClass = CitiesFragment.class;
         }
 
         try {
