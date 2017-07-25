@@ -39,7 +39,6 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
         }
     }
 
-
     @Override
     public void observeInputChanges(Observable<CharSequence> inputChanges) {
         Disposable disposable = inputChanges.observeOn(AndroidSchedulers.mainThread())
@@ -56,8 +55,7 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
         compositeDisposable.add(disposable);
     }
 
-    @NonNull
-    private void handleNext(List<CityViewModel> cities) {
+    private void handleNext(@NonNull List<CityViewModel> cities) {
         if (!cities.isEmpty()) {
             view.showCities(cities);
         } else {
@@ -75,9 +73,5 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
     public void onDetach() {
         this.view = null;
         compositeDisposable.clear();
-    }
-
-    private boolean isViewAttached() {
-        return false;
     }
 }

@@ -30,6 +30,8 @@ import ru.karapetiandav.yamblzproject.ui.cities.presenter.CitiesPresenter;
 
 public class CitiesFragment extends Fragment implements CitiesView {
 
+    public static final String TAG = "cities_fragment_tag";
+
     @Inject CitiesAdapter adapter;
     @Inject CitiesPresenter<CitiesView> presenter;
 
@@ -48,6 +50,7 @@ public class CitiesFragment extends Fragment implements CitiesView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        App.getAppComponent().plusCitiesComponent(new CitiesModule()).inject(this);
     }
 
     @Nullable
@@ -55,11 +58,15 @@ public class CitiesFragment extends Fragment implements CitiesView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cities, container, false);
         ButterKnife.bind(this, view);
-        App.getAppComponent().plusCitiesComponent(new CitiesModule()).inject(this);
         setupRecyclerView();
         presenter.onAttach(this);
-        presenter.observeInputChanges(RxTextView.textChanges(inputCityET).skipInitialValue());
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.observeInputChanges(RxTextView.textChanges(inputCityET).skipInitialValue());
     }
 
     private void setupRecyclerView() {
