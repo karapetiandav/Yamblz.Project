@@ -8,19 +8,20 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import ru.karapetiandav.yamblzproject.business.cities.CitiesInteractor;
 import ru.karapetiandav.yamblzproject.ui.cities.model.CityViewModel;
 import ru.karapetiandav.yamblzproject.ui.cities.view.CitiesView;
+import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulers;
 
 public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
 
     private CitiesInteractor citiesInteractor;
     private CompositeDisposable compositeDisposable;
     private CitiesPresenterCache cache;
+    private RxSchedulers schedulers;
+
     private CitiesView view;
 
     private static final int DEBOUNCE_BEFORE_QUERING_DATA = 500;
@@ -48,16 +49,16 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
 
     @Override
     public void observeInputChanges(Observable<CharSequence> inputChanges) {
-        Disposable disposable = inputChanges.observeOn(AndroidSchedulers.mainThread())
+        Disposable disposable = inputChanges.observeOn(schedulers.getMainThreadScheduler())
                 .doOnNext(ignore -> view.showProgress())
                 .filter(charSequence -> !TextUtils.isEmpty(charSequence))
                 .debounce(DEBOUNCE_BEFORE_QUERING_DATA, TimeUnit.MILLISECONDS)
                 .map(CharSequence::toString)
                 .flatMap(s -> citiesInteractor.getCitiesMatches(s))
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(schedulers.getMainThreadScheduler())
                 .doAfterNext(ignore -> view.hideProgress())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulers.getIOScheduler())
+                .observeOn(schedulers.getMainThreadScheduler())
                 .subscribe(this::handleNext, this::handleError);
         compositeDisposable.add(disposable);
     }
