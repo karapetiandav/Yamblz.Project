@@ -19,7 +19,7 @@ public class CitiesActivity extends AppCompatActivity {
         citiesFragment = (CitiesFragment) getFragmentManager()
                 .findFragmentByTag(CitiesFragment.TAG);
         if (citiesFragment == null) {
-            citiesFragment = CitiesFragment.newInstance();
+            citiesFragment = new CitiesFragment();
             getFragmentManager().beginTransaction()
                     .add(R.id.container, citiesFragment, CitiesFragment.TAG)
                     .commit();

@@ -23,6 +23,8 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
     private CitiesPresenterCache cache;
     private CitiesView view;
 
+    private static final int DEBOUNCE_BEFORE_QUERING_DATA = 500;
+
     public CitiesPresenterImpl(CitiesInteractor citiesInteractor,
                                CompositeDisposable compositeDisposable,
                                CitiesPresenterCache cache) {
@@ -35,7 +37,12 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
     public void onAttach(CitiesView view) {
         this.view = view;
         if (cache.isCacheExist()) {
-            view.showCities(cache.getCities());
+            List<CityViewModel> cities = cache.getCities();
+            if (cities.size() == 0) {
+                view.showNoMatches();
+            } else {
+                view.showCities(cache.getCities());
+            }
         }
     }
 
@@ -44,14 +51,14 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
         Disposable disposable = inputChanges.observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(ignore -> view.showProgress())
                 .filter(charSequence -> !TextUtils.isEmpty(charSequence))
-                .debounce(500, TimeUnit.MILLISECONDS)
+                .debounce(DEBOUNCE_BEFORE_QUERING_DATA, TimeUnit.MILLISECONDS)
                 .map(CharSequence::toString)
                 .flatMap(s -> citiesInteractor.getCitiesMatches(s))
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterNext(ignore -> view.hideProgress())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleNext);
+                .subscribe(this::handleNext, this::handleError);
         compositeDisposable.add(disposable);
     }
 
@@ -62,6 +69,10 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
             view.showNoMatches();
         }
         cache.updateData(cities);
+    }
+
+    private void handleError(Throwable throwable) {
+        view.showError();
     }
 
     @Override

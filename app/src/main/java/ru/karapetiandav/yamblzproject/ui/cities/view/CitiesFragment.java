@@ -37,14 +37,9 @@ public class CitiesFragment extends Fragment implements CitiesView {
 
     @BindView(R.id.input_city_edittext) EditText inputCityET;
     @BindView(R.id.cities_recyclerview) RecyclerView recyclerView;
-    @BindView(R.id.enter_city_name_textview) TextView helloTV;
     @BindView(R.id.no_results_textview) TextView noResultsTV;
     @BindView(R.id.loading_progressbar) ProgressBar progressBar;
-
-    public static CitiesFragment newInstance() {
-        CitiesFragment citiesFragment = new CitiesFragment();
-        return citiesFragment;
-    }
+    @BindView(R.id.no_data_error_textview) TextView errorTV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +74,8 @@ public class CitiesFragment extends Fragment implements CitiesView {
 
     @Override
     public void showCities(List<CityViewModel> cities) {
-        helloTV.setVisibility(View.GONE);
+        noResultsTV.setVisibility(View.GONE);
+        errorTV.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
         adapter.changeDataSet(cities);
     }
@@ -105,5 +101,12 @@ public class CitiesFragment extends Fragment implements CitiesView {
     public void showNoMatches() {
         recyclerView.setVisibility(View.GONE);
         noResultsTV.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showError() {
+        recyclerView.setVisibility(View.GONE);
+        noResultsTV.setVisibility(View.GONE);
+        errorTV.setVisibility(View.VISIBLE);
     }
 }

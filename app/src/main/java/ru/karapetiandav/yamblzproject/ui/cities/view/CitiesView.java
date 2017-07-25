@@ -10,4 +10,5 @@ public interface CitiesView {
     void showProgress();
     void hideProgress();
     void showNoMatches();
+    void showError();
 }

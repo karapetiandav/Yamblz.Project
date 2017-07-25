@@ -32,4 +32,5 @@
     <string name="navigation_city_selection">City selection</string>
     <string name="enter_city_name">Enter city name</string>
     <string name="no_cities_found">Did not match any cities</string>
+    <string name="error_no_data">Не удалось получить данные</string>
 </resources>
