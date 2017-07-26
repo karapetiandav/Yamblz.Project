@@ -6,5 +6,4 @@ import io.reactivex.Scheduler;
 public interface RxSchedulers {
     Scheduler getMainThreadScheduler();
     Scheduler getIOScheduler();
-    Scheduler getComputationScheduler();
 }

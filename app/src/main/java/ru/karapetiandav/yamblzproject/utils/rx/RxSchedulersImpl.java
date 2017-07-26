@@ -16,8 +16,4 @@ public class RxSchedulersImpl implements RxSchedulers {
         return Schedulers.io();
     }
 
-    @Override
-    public Scheduler getComputationScheduler() {
-        return Schedulers.computation();
-    }
 }

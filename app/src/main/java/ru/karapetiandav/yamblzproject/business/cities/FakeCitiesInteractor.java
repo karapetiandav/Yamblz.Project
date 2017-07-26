@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import ru.karapetiandav.yamblzproject.ui.cities.model.CityViewModel;
 
-public class FakeCitiesInteractorImpl implements CitiesInteractor {
+public class FakeCitiesInteractor implements CitiesInteractor {
 
     private static final List<CityViewModel> CITIES = new ArrayList<>();
 

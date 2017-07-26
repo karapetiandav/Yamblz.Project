@@ -16,8 +16,4 @@ public class RxSchedulersTest implements RxSchedulers {
         return Schedulers.trampoline();
     }
 
-    @Override
-    public Scheduler getComputationScheduler() {
-        return Schedulers.trampoline();
-    }
 }

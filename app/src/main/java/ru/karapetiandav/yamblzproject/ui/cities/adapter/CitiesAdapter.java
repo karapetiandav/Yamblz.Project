@@ -29,7 +29,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
 
     @Override
     public void onBindViewHolder(CitiesViewHolder holder, int position) {
-        holder.cityTV.setText(cities.get(position).getCityName());
+        holder.cityTV.setText(cities.get(position).getCityInfo());
     }
 
     @Override

@@ -28,10 +28,12 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
 
     public CitiesPresenterImpl(CitiesInteractor citiesInteractor,
                                CompositeDisposable compositeDisposable,
-                               CitiesPresenterCache cache) {
+                               CitiesPresenterCache cache,
+                               RxSchedulers schedulers) {
         this.citiesInteractor = citiesInteractor;
         this.compositeDisposable = compositeDisposable;
         this.cache = cache;
+        this.schedulers = schedulers;
     }
 
     @Override
@@ -49,7 +51,8 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
 
     @Override
     public void observeInputChanges(Observable<CharSequence> inputChanges) {
-        Disposable disposable = inputChanges.observeOn(schedulers.getMainThreadScheduler())
+        Disposable disposable = inputChanges
+                .observeOn(schedulers.getMainThreadScheduler())
                 .doOnNext(ignore -> view.showProgress())
                 .filter(charSequence -> !TextUtils.isEmpty(charSequence))
                 .debounce(DEBOUNCE_BEFORE_QUERING_DATA, TimeUnit.MILLISECONDS)
