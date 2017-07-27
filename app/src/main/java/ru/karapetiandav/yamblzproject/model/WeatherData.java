@@ -1,10 +1,9 @@
 
 package ru.karapetiandav.yamblzproject.model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class WeatherData {
 
@@ -20,9 +19,6 @@ public class WeatherData {
     @SerializedName("main")
     @Expose
     private Main main;
-    @SerializedName("visibility")
-    @Expose
-    private Integer visibility;
     @SerializedName("wind")
     @Expose
     private Wind wind;
@@ -31,19 +27,19 @@ public class WeatherData {
     private Clouds clouds;
     @SerializedName("dt")
     @Expose
-    private Integer dt;
+    private int dt;
     @SerializedName("sys")
     @Expose
     private Sys sys;
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("cod")
     @Expose
-    private Integer cod;
+    private int cod;
 
     public Coord getCoord() {
         return coord;
@@ -77,14 +73,6 @@ public class WeatherData {
         this.main = main;
     }
 
-    public Integer getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(Integer visibility) {
-        this.visibility = visibility;
-    }
-
     public Wind getWind() {
         return wind;
     }
@@ -101,11 +89,11 @@ public class WeatherData {
         this.clouds = clouds;
     }
 
-    public Integer getDt() {
+    public int getDt() {
         return dt;
     }
 
-    public void setDt(Integer dt) {
+    public void setDt(int dt) {
         this.dt = dt;
     }
 
@@ -117,11 +105,11 @@ public class WeatherData {
         this.sys = sys;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -133,11 +121,11 @@ public class WeatherData {
         this.name = name;
     }
 
-    public Integer getCod() {
+    public int getCod() {
         return cod;
     }
 
-    public void setCod(Integer cod) {
+    public void setCod(int cod) {
         this.cod = cod;
     }
 

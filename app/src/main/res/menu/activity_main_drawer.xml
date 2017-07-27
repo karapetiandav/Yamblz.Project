@@ -14,10 +14,6 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_apps"
             android:title="@string/navigation_about_text" />
-        <item
-            android:id="@+id/nav_cities"
-            android:icon="@drawable/ic_city"
-            android:title="@string/navigation_city_selection"/>
     </group>
 
 </menu>

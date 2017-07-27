@@ -34,12 +34,13 @@ public class Utils {
         }
     }
 
-    public static String formatPressure(Context context, int pressure) {
+    public static String formatPressure(Context context, float pressure) {
+        int pressureInt = Math.round(pressure);
         if (getCurrentLocale(context) == Locale.US) {
-            return context.getString(R.string.weather_fragment_pressure) + " " + pressure +
+            return context.getString(R.string.weather_fragment_pressure) + " " + pressureInt +
                     " " + context.getString(R.string.pressure_measure_unit);
         } else {
-            return context.getString(R.string.weather_fragment_pressure) + " " + (pressure * 0.750) +
+            return context.getString(R.string.weather_fragment_pressure) + " " + Math.round(pressureInt * 0.750) +
                     " " + context.getString(R.string.pressure_measure_unit);
         }
     }

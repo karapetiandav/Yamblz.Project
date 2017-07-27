@@ -42,7 +42,14 @@
         <item>1440</item>
     </string-array>
     <string name="pref_update_time_default" translatable="false">180</string>
+
+    <string name="pref_city_key" translatable="false">cities</string>
     <string name="pref_city_title">Город</string>
+
+    <!--shred_prefs-->
+    <string name="city_id_key" translatable="false">city_id</string>
+    <string name="city_name_key" translatable="false">city_name</string>
+    <string name="country_key" translatable="false">country</string>
 
     <!--cities-->
     <string name="enter_city_name">Введите название города</string>

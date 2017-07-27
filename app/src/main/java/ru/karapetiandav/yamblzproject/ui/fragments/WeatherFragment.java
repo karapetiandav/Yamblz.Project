@@ -3,6 +3,7 @@ package ru.karapetiandav.yamblzproject.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.karapetiandav.yamblzproject.R;
+import ru.karapetiandav.yamblzproject.data.prefs.PreferenceHelperImpl;
 import ru.karapetiandav.yamblzproject.model.WeatherData;
 import ru.karapetiandav.yamblzproject.mvp.HolderFragment;
 import ru.karapetiandav.yamblzproject.mvp.WeatherPresenter;
@@ -64,7 +66,8 @@ public class WeatherFragment extends Fragment implements WeatherPresenter.Weathe
         }
         weatherPresenter = holderFragment.getPresenter();
         if (weatherPresenter == null) {
-            weatherPresenter = new WeatherPresenter();
+            weatherPresenter = new WeatherPresenter(new PreferenceHelperImpl(
+                    PreferenceManager.getDefaultSharedPreferences(getActivity()), getResources()));
             holderFragment.setPresenter(weatherPresenter);
         }
 

@@ -8,58 +8,80 @@ public class Main {
 
     @SerializedName("temp")
     @Expose
-    private Double temp;
+    private float temp;
     @SerializedName("pressure")
     @Expose
-    private Integer pressure;
+    private float pressure;
     @SerializedName("humidity")
     @Expose
-    private Integer humidity;
+    private int humidity;
     @SerializedName("temp_min")
     @Expose
-    private Double tempMin;
+    private float tempMin;
     @SerializedName("temp_max")
     @Expose
-    private Double tempMax;
+    private float tempMax;
+    @SerializedName("sea_level")
+    @Expose
+    private float seaLevel;
+    @SerializedName("grnd_level")
+    @Expose
+    private float grndLevel;
 
-    public Double getTemp() {
+    public float getTemp() {
         return temp;
     }
 
-    public void setTemp(Double temp) {
+    public void setTemp(float temp) {
         this.temp = temp;
     }
 
-    public Integer getPressure() {
+    public float getPressure() {
         return pressure;
     }
 
-    public void setPressure(Integer pressure) {
+    public void setPressure(float pressure) {
         this.pressure = pressure;
     }
 
-    public Integer getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Integer humidity) {
+    public void setHumidity(int humidity) {
         this.humidity = humidity;
     }
 
-    public Double getTempMin() {
+    public float getTempMin() {
         return tempMin;
     }
 
-    public void setTempMin(Double tempMin) {
+    public void setTempMin(float tempMin) {
         this.tempMin = tempMin;
     }
 
-    public Double getTempMax() {
+    public float getTempMax() {
         return tempMax;
     }
 
-    public void setTempMax(Double tempMax) {
+    public void setTempMax(float tempMax) {
         this.tempMax = tempMax;
+    }
+
+    public float getSeaLevel() {
+        return seaLevel;
+    }
+
+    public void setSeaLevel(float seaLevel) {
+        this.seaLevel = seaLevel;
+    }
+
+    public float getGrndLevel() {
+        return grndLevel;
+    }
+
+    public void setGrndLevel(float grndLevel) {
+        this.grndLevel = grndLevel;
     }
 
 }

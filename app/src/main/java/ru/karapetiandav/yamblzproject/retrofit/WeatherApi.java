@@ -7,5 +7,5 @@ import ru.karapetiandav.yamblzproject.model.WeatherData;
 
 public interface WeatherApi {
     @GET("/data/2.5/weather")
-    Call<WeatherData> getWeatherData(@Query("q") String city, @Query("appid") String apiKey);
+    Call<WeatherData> getWeatherData(@Query("id") String cityId, @Query("appid") String apiKey);
 }

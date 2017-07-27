@@ -1,6 +1,7 @@
 package ru.karapetiandav.yamblzproject;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -22,6 +23,7 @@ public class App extends Application {
     private static SharedPreferences sharedPreferences;
     private String baseUrl;
     private Retrofit retrofit;
+    private static Context context;
 
     public static AppComponent appComponent;
 
@@ -37,6 +39,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        context = this;
+
         appComponent = buildComponent();
 
         baseUrl = "http://api.openweathermap.org/";
@@ -51,6 +55,10 @@ public class App extends Application {
         weatherApi = retrofit.create(WeatherApi.class);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    public static Context getContext() {
+        return context;
     }
 
     private AppComponent buildComponent() {

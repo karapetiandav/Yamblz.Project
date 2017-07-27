@@ -8,6 +8,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.karapetiandav.yamblzproject.App;
+import ru.karapetiandav.yamblzproject.data.model.CityDataModel;
+import ru.karapetiandav.yamblzproject.data.prefs.PreferenceHelper;
 import ru.karapetiandav.yamblzproject.job.SyncWeatherJob;
 import ru.karapetiandav.yamblzproject.model.WeatherData;
 
@@ -22,11 +24,14 @@ public class WeatherPresenter extends IPresenter<WeatherPresenter.WeatherView> {
     private static final String TAG = WeatherPresenter.class.getSimpleName();
     private SharedPreferences sharedPreferences;
 
+    private PreferenceHelper preferenceHelper;
+
     private Call<WeatherData> call;
 
-    public WeatherPresenter() {
+    public WeatherPresenter(PreferenceHelper preferenceHelper) {
         sharedPreferences = App.getSharedPreferences();
         SyncWeatherJob.schedulePeriodicJob(sharedPreferences);
+        this.preferenceHelper = preferenceHelper;
     }
 
     @Override
@@ -60,7 +65,12 @@ public class WeatherPresenter extends IPresenter<WeatherPresenter.WeatherView> {
     }
 
     public void makeRequest() {
-        call = App.getWeatherApi().getWeatherData(CITY, App.API_KEY);
+        preferenceHelper.getCity().subscribe(this::handleSuccess);
+
+    }
+
+    private void handleSuccess(CityDataModel city) {
+        call = App.getWeatherApi().getWeatherData(String.valueOf(city.getId()), App.API_KEY);
         call.enqueue(
                 new Callback<WeatherData>() {
                     @Override

@@ -11,10 +11,6 @@ import ru.karapetiandav.yamblzproject.data.model.CityDataModel;
 
 public class PreferenceHelperImpl implements PreferenceHelper {
 
-    private static final String CITY_ID_KEY = "city_id_key";
-    private static final String CITY_NAME_KEY = "city_name_key";
-    private static final String COUNTRY_KEY = "country_key";
-
     private SharedPreferences sharedPrefs;
     private Resources resources;
 
@@ -26,9 +22,9 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public Completable saveCity(CityDataModel city) {
         SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putInt(CITY_ID_KEY, city.getId());
-        editor.putString(CITY_NAME_KEY, city.getCityName());
-        editor.putString(COUNTRY_KEY, city.getCountryCode());
+        editor.putInt(resources.getString(R.string.city_id_key), city.getId());
+        editor.putString(resources.getString(R.string.city_name_key), city.getCityName());
+        editor.putString(resources.getString(R.string.country_key), city.getCountryCode());
         editor.apply();
         return Completable.complete();
     }
@@ -36,9 +32,9 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public Single<CityDataModel> getCity() {
         CityDataModel cityDataModel = new CityDataModel(
-                sharedPrefs.getInt(CITY_ID_KEY, resources.getInteger(R.integer.default_city_id)),
-                sharedPrefs.getString(CITY_NAME_KEY, resources.getString(R.string.default_city_name)),
-                sharedPrefs.getString(COUNTRY_KEY, resources.getString(R.string.default_country))
+                sharedPrefs.getInt(resources.getString(R.string.city_id_key), resources.getInteger(R.integer.default_city_id)),
+                sharedPrefs.getString(resources.getString(R.string.city_name_key), resources.getString(R.string.default_city_name)),
+                sharedPrefs.getString(resources.getString(R.string.country_key), resources.getString(R.string.default_country))
         );
         return Single.fromCallable(() -> cityDataModel);
     }
