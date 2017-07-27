@@ -10,6 +10,7 @@ import ru.karapetiandav.yamblzproject.business.cities.interactor.CitiesInteracto
 import ru.karapetiandav.yamblzproject.business.cities.interactor.CitiesInteractorImpl;
 import ru.karapetiandav.yamblzproject.business.cities.mapper.CityMapper;
 import ru.karapetiandav.yamblzproject.data.db.DBHelper;
+import ru.karapetiandav.yamblzproject.data.prefs.PreferenceHelper;
 import ru.karapetiandav.yamblzproject.data.repositories.cities.CitiesRepository;
 import ru.karapetiandav.yamblzproject.data.repositories.cities.CitiesRepositoryImpl;
 import ru.karapetiandav.yamblzproject.di.scope.CitiesScope;
@@ -67,8 +68,8 @@ public class CitiesModule {
     @Provides
     @CitiesScope
     @NonNull
-    CitiesRepository provideCitiesRepository(DBHelper dbHelper) {
-        return new CitiesRepositoryImpl(dbHelper);
+    CitiesRepository provideCitiesRepository(DBHelper dbHelper, PreferenceHelper preferenceHelper) {
+        return new CitiesRepositoryImpl(dbHelper, preferenceHelper);
     }
 
     @Provides

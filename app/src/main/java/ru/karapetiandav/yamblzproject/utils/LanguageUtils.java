@@ -1,7 +1,7 @@
 package ru.karapetiandav.yamblzproject.utils;
 
 
-import ru.karapetiandav.yamblzproject.data.db.model.Language;
+import ru.karapetiandav.yamblzproject.data.model.Language;
 
 public class LanguageUtils {
 

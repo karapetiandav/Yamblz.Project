@@ -2,10 +2,10 @@ package ru.karapetiandav.yamblzproject.business.cities.interactor;
 
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import ru.karapetiandav.yamblzproject.business.cities.mapper.CityMapper;
 import ru.karapetiandav.yamblzproject.data.repositories.cities.CitiesRepository;
@@ -28,10 +28,14 @@ public class CitiesInteractorImpl implements CitiesInteractor {
     @NonNull
     @Override
     public Observable<List<CityViewModel>> getCitiesMatches(String city) {
-        Log.v("log_tag", Thread.currentThread().toString());
         return citiesRepository
                 .getCitiesMatches(city, languageUtils.getSupportedLanguageByText(city))
                 .toObservable()
-                .map(cityMapper::getCityViewModelFromDataModel);
+                .map(cityMapper::getViewModelList);
+    }
+
+    @Override
+    public Completable saveCity(CityViewModel city) {
+        return citiesRepository.saveCity(cityMapper.getDataModel(city));
     }
 }

@@ -1,4 +1,4 @@
-package ru.karapetiandav.yamblzproject.data.db.model;
+package ru.karapetiandav.yamblzproject.data.model;
 
 
 public final class CityDataModel {

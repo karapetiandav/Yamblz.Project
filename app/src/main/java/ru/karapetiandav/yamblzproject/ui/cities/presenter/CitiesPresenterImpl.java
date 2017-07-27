@@ -24,8 +24,6 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
 
     private CitiesView view;
 
-    private static final int DEBOUNCE_BEFORE_QUERING_DATA = 500;
-
     public CitiesPresenterImpl(CitiesInteractor citiesInteractor,
                                CompositeDisposable compositeDisposable,
                                CitiesPresenterCache cache,
@@ -67,7 +65,6 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
     private void handleText(String text) {
         if (text.equals("")) {
             view.showCities(new ArrayList<>());
-            view.hideProgress();
             return;
         }
         cache.setLastText(text);
@@ -87,8 +84,8 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
     }
 
     @Override
-    public void onCityClick(int position) {
-
+    public void onCityClick(CityViewModel city) {
+        citiesInteractor.saveCity(city).subscribe(view::close);
     }
 
     @Override

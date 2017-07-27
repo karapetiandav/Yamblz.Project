@@ -42,6 +42,7 @@
         <item>1440</item>
     </string-array>
     <string name="pref_update_time_default" translatable="false">180</string>
+    <string name="pref_city_title">Город</string>
 
     <!--cities-->
     <string name="enter_city_name">Введите название города</string>
@@ -49,6 +50,10 @@
     <string name="error_no_data">Не удалось получить данные</string>
 
     <!--db-->
-    <string name="db_name">cities.db</string>
+    <string name="db_name" translatable="false">cities.db</string>
     <integer name="db_version">1</integer>
+
+    <integer name="default_city_id">524901</integer>
+    <string name="default_city_name">Москва</string>
+    <string name="default_country" translatable="false">RU</string>
 </resources>

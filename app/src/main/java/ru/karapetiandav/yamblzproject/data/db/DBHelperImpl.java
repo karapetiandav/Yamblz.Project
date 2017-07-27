@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
-import ru.karapetiandav.yamblzproject.data.db.model.CityDataModel;
-import ru.karapetiandav.yamblzproject.data.db.model.Language;
+import ru.karapetiandav.yamblzproject.data.model.CityDataModel;
+import ru.karapetiandav.yamblzproject.data.model.Language;
 import ru.karapetiandav.yamblzproject.di.qualifiers.DbName;
 import ru.karapetiandav.yamblzproject.di.qualifiers.DbVersion;
 

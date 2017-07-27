@@ -18,7 +18,7 @@ import ru.karapetiandav.yamblzproject.ui.cities.model.CityViewModel;
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesViewHolder> {
 
     private List<CityViewModel> cities = new ArrayList<>();
-    private OnItemClickListener onItemClickListener;
+    private OnCityClickListener onCityClickListener;
 
     @Override
     public CitiesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,8 +42,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
         notifyDataSetChanged();
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnCityClickListener(OnCityClickListener onCityClickListener) {
+        this.onCityClickListener = onCityClickListener;
     }
 
     class CitiesViewHolder extends RecyclerView.ViewHolder {
@@ -54,11 +54,11 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view ->
-                    onItemClickListener.onItemClick(getAdapterPosition()));
+                    onCityClickListener.onCityClick(cities.get(getAdapterPosition())));
         }
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
+    public interface OnCityClickListener {
+        void onCityClick(CityViewModel cityViewModel);
     }
 }

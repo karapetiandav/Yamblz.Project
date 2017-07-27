@@ -67,7 +67,7 @@ public class CitiesFragment extends Fragment implements CitiesView {
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter.setOnItemClickListener(position -> presenter.onCityClick(position));
+        adapter.setOnCityClickListener(position -> presenter.onCityClick(position));
         recyclerView.setAdapter(adapter);
 
     }
@@ -78,17 +78,6 @@ public class CitiesFragment extends Fragment implements CitiesView {
         errorTV.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
         adapter.changeDataSet(cities);
-    }
-
-    @Override
-    public void showProgress() {
-        recyclerView.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -108,5 +97,10 @@ public class CitiesFragment extends Fragment implements CitiesView {
         recyclerView.setVisibility(View.GONE);
         noResultsTV.setVisibility(View.GONE);
         errorTV.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void close() {
+        getActivity().finish();
     }
 }
