@@ -9,8 +9,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import ru.karapetiandav.yamblzproject.business.cities.CitiesInteractor;
 import ru.karapetiandav.yamblzproject.business.cities.CitiesInteractorImpl;
 import ru.karapetiandav.yamblzproject.business.cities.mapper.CityMapper;
+import ru.karapetiandav.yamblzproject.data.db.DBHelper;
 import ru.karapetiandav.yamblzproject.data.repositories.cities.CitiesRepository;
-import ru.karapetiandav.yamblzproject.data.repositories.cities.FakeCitiesRepository;
+import ru.karapetiandav.yamblzproject.data.repositories.cities.CitiesRepositoryImpl;
 import ru.karapetiandav.yamblzproject.di.scope.CitiesScope;
 import ru.karapetiandav.yamblzproject.ui.cities.adapter.CitiesAdapter;
 import ru.karapetiandav.yamblzproject.ui.cities.presenter.CitiesPresenter;
@@ -64,8 +65,8 @@ public class CitiesModule {
     @Provides
     @CitiesScope
     @NonNull
-    CitiesRepository provideCitiesRepository() {
-        return new FakeCitiesRepository();
+    CitiesRepository provideCitiesRepository(DBHelper dbHelper) {
+        return new CitiesRepositoryImpl(dbHelper);
     }
 
     @Provides

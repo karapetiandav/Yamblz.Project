@@ -23,7 +23,7 @@ public class CitiesInteractorImpl implements CitiesInteractor {
     @NonNull
     @Override
     public Observable<List<CityViewModel>> getCitiesMatches(String city) {
-        return citiesRepository.getCitiesMatches(city)
+        return citiesRepository.getCitiesMatches(city).toObservable()
                 .map(cityMapper::getCityViewModelFromDataModel);
     }
 }

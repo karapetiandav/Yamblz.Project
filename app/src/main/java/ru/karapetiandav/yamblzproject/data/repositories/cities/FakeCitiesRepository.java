@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.Observable;
-import ru.karapetiandav.yamblzproject.data.model.CityDataModel;
+import io.reactivex.Single;
+import ru.karapetiandav.yamblzproject.data.db.model.CityDataModel;
 
 public class FakeCitiesRepository implements CitiesRepository {
 
@@ -22,8 +22,8 @@ public class FakeCitiesRepository implements CitiesRepository {
     }
 
     @Override
-    public Observable<List<CityDataModel>> getCitiesMatches(String city) {
+    public Single<List<CityDataModel>> getCitiesMatches(String city) {
         Collections.shuffle(CITIES);
-        return Observable.fromCallable(() -> CITIES);
+        return Single.fromCallable(() -> CITIES);
     }
 }

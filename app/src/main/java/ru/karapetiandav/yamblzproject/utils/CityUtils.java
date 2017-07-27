@@ -12,6 +12,6 @@ public class CityUtils {
     }
 
     public String getCountryNameByCode(String countryCode) {
-        return "Россия";
+        return countryCode;
     }
 }

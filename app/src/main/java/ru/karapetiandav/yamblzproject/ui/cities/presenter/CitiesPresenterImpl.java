@@ -3,6 +3,7 @@ package ru.karapetiandav.yamblzproject.ui.cities.presenter;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -61,6 +62,7 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
                 .observeOn(schedulers.getMainThreadScheduler())
                 .doAfterNext(ignore -> view.hideProgress())
                 .subscribeOn(schedulers.getIOScheduler())
+                .doOnTerminate(view::hideProgress)
                 .observeOn(schedulers.getMainThreadScheduler())
                 .subscribe(this::handleNext, this::handleError);
         compositeDisposable.add(disposable);
