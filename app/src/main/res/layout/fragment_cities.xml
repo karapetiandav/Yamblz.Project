@@ -17,7 +17,8 @@
         android:padding="8dp"
         android:layout_margin="8dp"
         android:maxLines="1"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:imeOptions="flagNoExtractUi|actionDone"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cities_recyclerview"
@@ -48,6 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/input_city_edittext"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="16dp"
         android:visibility="gone"/>
 

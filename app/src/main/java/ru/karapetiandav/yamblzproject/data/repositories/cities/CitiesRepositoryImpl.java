@@ -6,6 +6,7 @@ import java.util.List;
 import io.reactivex.Single;
 import ru.karapetiandav.yamblzproject.data.db.DBHelper;
 import ru.karapetiandav.yamblzproject.data.db.model.CityDataModel;
+import ru.karapetiandav.yamblzproject.data.db.model.Language;
 
 public class CitiesRepositoryImpl implements CitiesRepository {
 
@@ -16,7 +17,7 @@ public class CitiesRepositoryImpl implements CitiesRepository {
     }
 
     @Override
-    public Single<List<CityDataModel>> getCitiesMatches(String text) {
-        return dbHelper.getCities(text);
+    public Single<List<CityDataModel>> getCitiesMatches(String text, Language language) {
+        return dbHelper.getCities(text, language);
     }
 }

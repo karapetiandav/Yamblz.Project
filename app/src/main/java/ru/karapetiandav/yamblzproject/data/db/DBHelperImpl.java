@@ -4,6 +4,7 @@ package ru.karapetiandav.yamblzproject.data.db;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Single;
 import ru.karapetiandav.yamblzproject.data.db.model.CityDataModel;
+import ru.karapetiandav.yamblzproject.data.db.model.Language;
 import ru.karapetiandav.yamblzproject.di.qualifiers.DbName;
 import ru.karapetiandav.yamblzproject.di.qualifiers.DbVersion;
 
@@ -30,14 +32,17 @@ public class DBHelperImpl extends SQLiteAssetHelper implements DBHelper {
     }
 
     @Override
-    public Single<List<CityDataModel>> getCities(String text) {
+    public Single<List<CityDataModel>> getCities(String text, Language language) {
+        Log.v("log_tag", Thread.currentThread().toString());
         SQLiteDatabase db = getReadableDatabase();
-
+        String tableName = language.equals(Language.RUS)
+                ? CitiesEntry.TABLE_RUS : CitiesEntry.TABLE_ENG;
+        text = prepareTextForQuery(text);
         Cursor cursor = db.query(
-                CitiesEntry.TABLE_ENG,
+                tableName,
                 null,
                 CitiesEntry.CITY_NAME + " LIKE ?",
-                new String[]{text + "%"},
+                new String[]{prepareTextForQuery(text) + "%"},
                 null,
                 null,
                 null,
@@ -46,6 +51,11 @@ public class DBHelperImpl extends SQLiteAssetHelper implements DBHelper {
         cursor.close();
         db.close();
         return Single.fromCallable(() -> cities);
+    }
+
+    private static String prepareTextForQuery(String text) {
+        text = text.toLowerCase();
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
     }
 
     private List<CityDataModel> getCitiesFromCursor(Cursor cursor) {

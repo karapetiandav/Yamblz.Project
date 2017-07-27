@@ -1,4 +1,4 @@
-package ru.karapetiandav.yamblzproject.business.cities;
+package ru.karapetiandav.yamblzproject.business.cities.interactor;
 
 
 import android.support.annotation.NonNull;

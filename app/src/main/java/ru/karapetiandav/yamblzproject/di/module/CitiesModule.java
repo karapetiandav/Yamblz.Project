@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
-import ru.karapetiandav.yamblzproject.business.cities.CitiesInteractor;
-import ru.karapetiandav.yamblzproject.business.cities.CitiesInteractorImpl;
+import ru.karapetiandav.yamblzproject.business.cities.interactor.CitiesInteractor;
+import ru.karapetiandav.yamblzproject.business.cities.interactor.CitiesInteractorImpl;
 import ru.karapetiandav.yamblzproject.business.cities.mapper.CityMapper;
 import ru.karapetiandav.yamblzproject.data.db.DBHelper;
 import ru.karapetiandav.yamblzproject.data.repositories.cities.CitiesRepository;
@@ -19,6 +19,7 @@ import ru.karapetiandav.yamblzproject.ui.cities.presenter.CitiesPresenterCache;
 import ru.karapetiandav.yamblzproject.ui.cities.presenter.CitiesPresenterImpl;
 import ru.karapetiandav.yamblzproject.ui.cities.view.CitiesView;
 import ru.karapetiandav.yamblzproject.utils.CityUtils;
+import ru.karapetiandav.yamblzproject.utils.LanguageUtils;
 import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulers;
 
 @Module
@@ -44,8 +45,9 @@ public class CitiesModule {
     @Provides
     @CitiesScope
     @NonNull
-    CitiesInteractor provideCitiesInteractor(CitiesRepository repository, CityMapper mapper) {
-        return new CitiesInteractorImpl(repository, mapper);
+    CitiesInteractor provideCitiesInteractor(CitiesRepository repository, CityMapper mapper,
+                                             LanguageUtils languageUtils) {
+        return new CitiesInteractorImpl(repository, mapper, languageUtils);
     }
 
     @Provides

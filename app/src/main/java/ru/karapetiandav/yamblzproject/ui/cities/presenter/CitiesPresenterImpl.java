@@ -3,15 +3,14 @@ package ru.karapetiandav.yamblzproject.ui.cities.presenter;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import ru.karapetiandav.yamblzproject.business.cities.CitiesInteractor;
+import ru.karapetiandav.yamblzproject.business.cities.interactor.CitiesInteractor;
 import ru.karapetiandav.yamblzproject.ui.cities.model.CityViewModel;
 import ru.karapetiandav.yamblzproject.ui.cities.view.CitiesView;
 import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulers;
@@ -53,23 +52,29 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
     @Override
     public void observeInputChanges(Observable<CharSequence> inputChanges) {
         Disposable disposable = inputChanges
-                .observeOn(schedulers.getMainThreadScheduler())
-                .doOnNext(ignore -> view.showProgress())
-                .filter(charSequence -> !TextUtils.isEmpty(charSequence))
-                .debounce(DEBOUNCE_BEFORE_QUERING_DATA, TimeUnit.MILLISECONDS)
                 .map(CharSequence::toString)
-                .flatMap(s -> citiesInteractor.getCitiesMatches(s))
                 .observeOn(schedulers.getMainThreadScheduler())
-                .doAfterNext(ignore -> view.hideProgress())
+                .doOnNext(this::handleText)
+                .filter(s -> !TextUtils.isEmpty(s))
+                .observeOn(schedulers.getIOScheduler())
+                .flatMap(citiesInteractor::getCitiesMatches)
                 .subscribeOn(schedulers.getIOScheduler())
-                .doOnTerminate(view::hideProgress)
                 .observeOn(schedulers.getMainThreadScheduler())
                 .subscribe(this::handleNext, this::handleError);
         compositeDisposable.add(disposable);
     }
 
+    private void handleText(String text) {
+        if (text.equals("")) {
+            view.showCities(new ArrayList<>());
+            view.hideProgress();
+            return;
+        }
+        cache.setLastText(text);
+    }
+
     private void handleNext(@NonNull List<CityViewModel> cities) {
-        if (!cities.isEmpty()) {
+        if (!cities.isEmpty() && !cache.getLastText().equals("")) {
             view.showCities(cities);
         } else {
             view.showNoMatches();

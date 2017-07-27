@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import ru.karapetiandav.yamblzproject.utils.LanguageUtils;
 import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulers;
 import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulersImpl;
 
@@ -39,5 +40,12 @@ public class AppModule {
     @NonNull
     RxSchedulers provideRxSchedulers() {
         return new RxSchedulersImpl();
+    }
+
+    @Provides
+    @Singleton
+    @NonNull
+    LanguageUtils provideLanguageUtils() {
+        return new LanguageUtils();
     }
 }

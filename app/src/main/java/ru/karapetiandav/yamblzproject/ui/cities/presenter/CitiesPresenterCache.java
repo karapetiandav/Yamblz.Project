@@ -8,6 +8,7 @@ import ru.karapetiandav.yamblzproject.ui.cities.model.CityViewModel;
 public class CitiesPresenterCache {
 
     private List<CityViewModel> cities;
+    private String lastText;
 
     void updateData(List<CityViewModel> cities) {
         this.cities = cities;
@@ -19,5 +20,17 @@ public class CitiesPresenterCache {
 
     boolean isCacheExist() {
         return cities != null;
+    }
+
+    public void setCities(List<CityViewModel> cities) {
+        this.cities = cities;
+    }
+
+    public String getLastText() {
+        return lastText;
+    }
+
+    public void setLastText(String lastText) {
+        this.lastText = lastText;
     }
 }
