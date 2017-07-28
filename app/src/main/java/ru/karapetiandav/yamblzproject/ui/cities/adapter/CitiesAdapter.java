@@ -1,6 +1,7 @@
 package ru.karapetiandav.yamblzproject.ui.cities.adapter;
 
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,6 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
     }
 
     public interface OnCityClickListener {
-        void onCityClick(CityViewModel cityViewModel);
+        void onCityClick(@NonNull CityViewModel cityViewModel);
     }
 }

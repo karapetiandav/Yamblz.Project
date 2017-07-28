@@ -2,7 +2,6 @@ package ru.karapetiandav.yamblzproject.ui.cities.presenter;
 
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,7 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
                 .map(CharSequence::toString)
                 .observeOn(schedulers.getMainThreadScheduler())
                 .doOnNext(this::handleText)
-                .filter(s -> !TextUtils.isEmpty(s))
+                .filter(s -> !s.isEmpty())
                 .observeOn(schedulers.getIOScheduler())
                 .flatMap(citiesInteractor::getCitiesMatches)
                 .subscribeOn(schedulers.getIOScheduler())
@@ -84,7 +83,7 @@ public class CitiesPresenterImpl implements CitiesPresenter<CitiesView> {
     }
 
     @Override
-    public void onCityClick(CityViewModel city) {
+    public void onCityClick(@NonNull CityViewModel city) {
         citiesInteractor.saveCity(city).subscribe(view::close);
     }
 

@@ -22,15 +22,11 @@ public class CitiesPresenterCache {
         return cities != null;
     }
 
-    public void setCities(List<CityViewModel> cities) {
-        this.cities = cities;
-    }
-
-    public String getLastText() {
+    String getLastText() {
         return lastText;
     }
 
-    public void setLastText(String lastText) {
+    void setLastText(String lastText) {
         this.lastText = lastText;
     }
 }
