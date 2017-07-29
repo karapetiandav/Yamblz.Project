@@ -27,6 +27,7 @@ public class CitiesRepositoryImpl implements CitiesRepository {
 
     @Override
     public Completable saveCity(CityDataModel city) {
-        return preferenceHelper.saveCity(city);
+        return preferenceHelper.saveCity(city)
+                .doOnComplete(() -> preferenceHelper.clearWeatherCache().subscribe());
     }
 }

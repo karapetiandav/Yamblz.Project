@@ -15,9 +15,9 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.karapetiandav.yamblzproject.R;
-import ru.karapetiandav.yamblzproject.ui.fragments.AboutFragment;
-import ru.karapetiandav.yamblzproject.ui.fragments.SettingsFragment;
-import ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment;
+import ru.karapetiandav.yamblzproject.ui.about.AboutFragment;
+import ru.karapetiandav.yamblzproject.ui.settings.SettingsFragment;
+import ru.karapetiandav.yamblzproject.ui.weather.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,9 +49,8 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_weather);
             setTitle(navigationView.getMenu().findItem(R.id.nav_weather).getTitle());
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, WeatherFragment.newInstance())
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new WeatherFragment())
                     .commit();
         }
     }
