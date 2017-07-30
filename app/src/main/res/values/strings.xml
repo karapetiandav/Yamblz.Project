@@ -8,6 +8,7 @@
     <string name="navigation_weather_text">Погода</string>
     <string name="navigation_settings_text">Настройки</string>
     <string name="navigation_about_text">О приложении</string>
+    <string name="navigation_city_selection">Выбор города</string>
 
     <!--AboutFragment strings-->
     <string name="text_about_app">Это учебное приложение разрабатываемое в рамках проекта \"Мобилизация\"</string>
@@ -41,4 +42,29 @@
         <item>1440</item>
     </string-array>
     <string name="pref_update_time_default" translatable="false">180</string>
+
+    <string name="pref_city_key" translatable="false">cities</string>
+    <string name="pref_city_title">Город</string>
+
+    <!--shred_prefs-->
+    <string name="city_id_key" translatable="false">city_id</string>
+    <string name="city_name_key" translatable="false">city_name</string>
+    <string name="country_key" translatable="false">country</string>
+
+    <!--cities-->
+    <string name="enter_city_name">Введите название города</string>
+    <string name="no_cities_found">Не найдено ни одного города</string>
+    <string name="error_no_data">Не удалось получить данные</string>
+
+    <!--db-->
+    <string name="db_name" translatable="false">cities.db</string>
+    <integer name="db_version">1</integer>
+
+    <integer name="default_city_id">524901</integer>
+    <string name="default_city_name">Москва</string>
+    <string name="default_country" translatable="false">RU</string>
+
+    <!--network-->
+    <string name="api_key" translatable="false">1fd56ebafdb3bec85d4b1ac5ae8529eb</string>
+    <string name="api_base_url" translatable="false">http://api.openweathermap.org/</string>
 </resources>

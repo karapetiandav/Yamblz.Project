@@ -6,4 +6,10 @@
         android:entryValues="@array/pref_update_time_values"
         android:key="pref_update_time"
         android:title="@string/pref_update_time_title" />
+
+    <Preference
+        android:key="@string/pref_city_key"
+        android:title="@string/pref_city_title">
+        <intent android:action="ui.cities.CitiesActivity"/>
+    </Preference>
 </PreferenceScreen>

@@ -15,9 +15,9 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.karapetiandav.yamblzproject.R;
-import ru.karapetiandav.yamblzproject.ui.fragments.AboutFragment;
-import ru.karapetiandav.yamblzproject.ui.fragments.SettingsFragment;
-import ru.karapetiandav.yamblzproject.ui.fragments.WeatherFragment;
+import ru.karapetiandav.yamblzproject.ui.about.AboutFragment;
+import ru.karapetiandav.yamblzproject.ui.settings.SettingsFragment;
+import ru.karapetiandav.yamblzproject.ui.weather.view.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,9 +49,8 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_weather);
             setTitle(navigationView.getMenu().findItem(R.id.nav_weather).getTitle());
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, WeatherFragment.newInstance())
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new WeatherFragment())
                     .commit();
         }
     }
@@ -74,12 +73,16 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_weather) {
-            fragmentClass = WeatherFragment.class;
-        } else if (id == R.id.nav_settings) {
-            fragmentClass = SettingsFragment.class;
-        } else if (id == R.id.nav_about) {
-            fragmentClass = AboutFragment.class;
+        switch (id) {
+            case R.id.nav_weather:
+                fragmentClass = WeatherFragment.class;
+                break;
+            case R.id.nav_settings:
+                fragmentClass = SettingsFragment.class;
+                break;
+            case R.id.nav_about:
+                fragmentClass = AboutFragment.class;
+                break;
         }
 
         try {
