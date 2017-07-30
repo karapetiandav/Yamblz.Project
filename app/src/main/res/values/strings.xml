@@ -63,4 +63,8 @@
     <integer name="default_city_id">524901</integer>
     <string name="default_city_name">Москва</string>
     <string name="default_country" translatable="false">RU</string>
+
+    <!--network-->
+    <string name="api_key" translatable="false">1fd56ebafdb3bec85d4b1ac5ae8529eb</string>
+    <string name="api_base_url" translatable="false">http://api.openweathermap.org/</string>
 </resources>

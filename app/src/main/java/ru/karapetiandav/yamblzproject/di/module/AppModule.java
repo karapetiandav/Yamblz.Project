@@ -13,6 +13,7 @@ import dagger.Provides;
 import ru.karapetiandav.yamblzproject.data.prefs.PreferenceHelper;
 import ru.karapetiandav.yamblzproject.data.prefs.PreferenceHelperImpl;
 import ru.karapetiandav.yamblzproject.utils.LanguageUtils;
+import ru.karapetiandav.yamblzproject.utils.Utils;
 import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulers;
 import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulersImpl;
 
@@ -66,5 +67,12 @@ public class AppModule {
     PreferenceHelper providePreferenceHelper(SharedPreferences sharedPreferences,
                                              Resources resources) {
         return new PreferenceHelperImpl(sharedPreferences, resources);
+    }
+
+    @Provides
+    @Singleton
+    @NonNull
+    Utils provideUtils(Resources resources) {
+        return new Utils(resources);
     }
 }
