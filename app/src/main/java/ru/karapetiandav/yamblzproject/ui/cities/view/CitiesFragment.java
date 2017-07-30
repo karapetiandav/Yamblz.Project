@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -38,7 +37,6 @@ public class CitiesFragment extends Fragment implements CitiesView {
     @BindView(R.id.input_city_edittext) EditText inputCityET;
     @BindView(R.id.cities_recyclerview) RecyclerView recyclerView;
     @BindView(R.id.no_results_textview) TextView noResultsTV;
-    @BindView(R.id.loading_progressbar) ProgressBar progressBar;
     @BindView(R.id.no_data_error_textview) TextView errorTV;
 
     @Override

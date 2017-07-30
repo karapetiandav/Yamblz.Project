@@ -19,7 +19,6 @@ import ru.karapetiandav.yamblzproject.ui.cities.presenter.CitiesPresenter;
 import ru.karapetiandav.yamblzproject.ui.cities.presenter.CitiesPresenterCache;
 import ru.karapetiandav.yamblzproject.ui.cities.presenter.CitiesPresenterImpl;
 import ru.karapetiandav.yamblzproject.ui.cities.view.CitiesView;
-import ru.karapetiandav.yamblzproject.utils.CityUtils;
 import ru.karapetiandav.yamblzproject.utils.LanguageUtils;
 import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulers;
 
@@ -68,14 +67,7 @@ public class CitiesModule {
     @Provides
     @CitiesScope
     @NonNull
-    CityMapper provideCityMapper(CityUtils cityUtils) {
-        return new CityMapper(cityUtils);
-    }
-
-    @Provides
-    @CitiesScope
-    @NonNull
-    CityUtils provideCityUtils(Resources resources) {
-        return new CityUtils(resources);
+    CityMapper provideCityMapper() {
+        return new CityMapper();
     }
 }
