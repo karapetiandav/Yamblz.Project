@@ -1,4 +1,4 @@
-package ru.karapetiandav.yamblzproject.ui.weather;
+package ru.karapetiandav.yamblzproject.ui.weather.view;
 
 
 import ru.karapetiandav.yamblzproject.ui.base.IView;

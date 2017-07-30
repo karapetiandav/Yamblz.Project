@@ -1,22 +1,26 @@
-package ru.karapetiandav.yamblzproject.ui.weather;
+package ru.karapetiandav.yamblzproject.ui.weather.presenter;
 
 import android.support.annotation.Nullable;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 import ru.karapetiandav.yamblzproject.business.weather.WeatherInteractor;
 import ru.karapetiandav.yamblzproject.ui.base.IPresenter;
+import ru.karapetiandav.yamblzproject.ui.weather.view.WeatherView;
 import ru.karapetiandav.yamblzproject.ui.weather.model.WeatherViewModel;
+import ru.karapetiandav.yamblzproject.utils.rx.RxSchedulers;
 
 public class WeatherPresenter extends IPresenter<WeatherView> {
 
     private WeatherInteractor weatherInteractor;
     private CompositeDisposable compositeDisposable;
+    private RxSchedulers rxSchedulers;
 
-    public WeatherPresenter(WeatherInteractor weatherInteractor) {
+    public WeatherPresenter(WeatherInteractor weatherInteractor,
+                            CompositeDisposable compositeDisposable,
+                            RxSchedulers rxSchedulers) {
         this.weatherInteractor = weatherInteractor;
-        compositeDisposable = new CompositeDisposable();
+        this.compositeDisposable = compositeDisposable;
+        this.rxSchedulers = rxSchedulers;
     }
 
     @Override
@@ -32,11 +36,10 @@ public class WeatherPresenter extends IPresenter<WeatherView> {
     }
 
     private void loadWeather() {
-        weatherInteractor.getWeather()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleSuccess, this::handleError);
-
+        compositeDisposable.add(weatherInteractor.getWeather()
+                .subscribeOn(rxSchedulers.getIOScheduler())
+                .observeOn(rxSchedulers.getMainThreadScheduler())
+                .subscribe(this::handleSuccess, this::handleError));
     }
 
     private void handleSuccess(WeatherViewModel weatherViewModel) {

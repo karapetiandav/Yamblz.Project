@@ -1,4 +1,4 @@
-package ru.karapetiandav.yamblzproject.ui.weather;
+package ru.karapetiandav.yamblzproject.ui.weather.view;
 
 
 import android.app.Fragment;
@@ -18,6 +18,7 @@ import ru.karapetiandav.yamblzproject.App;
 import ru.karapetiandav.yamblzproject.R;
 import ru.karapetiandav.yamblzproject.di.module.WeatherModule;
 import ru.karapetiandav.yamblzproject.ui.weather.model.WeatherViewModel;
+import ru.karapetiandav.yamblzproject.ui.weather.presenter.WeatherPresenter;
 
 import static ru.karapetiandav.yamblzproject.R.id.humidity;
 import static ru.karapetiandav.yamblzproject.R.id.pressure;
@@ -26,7 +27,8 @@ public class WeatherFragment extends Fragment implements WeatherView {
 
     private static final String HOLDER_TAG = "weather_presenter";
 
-    @Inject WeatherPresenter weatherPresenter;
+    @Inject
+    WeatherPresenter weatherPresenter;
 
     @BindView(R.id.temp_degree) TextView tempDegreeTextView;
     @BindView(R.id.today_date) TextView todayDateTextView;

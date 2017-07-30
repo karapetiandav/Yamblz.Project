@@ -54,13 +54,6 @@ public class CitiesModule {
     @Provides
     @CitiesScope
     @NonNull
-    CompositeDisposable provideCompositeDisposable() {
-        return new CompositeDisposable();
-    }
-
-    @Provides
-    @CitiesScope
-    @NonNull
     CitiesPresenterCache provideCitiesPresenterCache() {
         return new CitiesPresenterCache();
     }

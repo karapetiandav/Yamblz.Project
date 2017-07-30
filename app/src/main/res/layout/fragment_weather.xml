@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/weather_fragment_gradient"
-    tools:context=".ui.weather.WeatherFragment">
+    tools:context=".ui.weather.view.WeatherFragment">
 
     <TextView
         android:id="@+id/today_date"
