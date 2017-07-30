@@ -8,15 +8,9 @@ import java.util.List;
 
 import ru.karapetiandav.yamblzproject.data.model.CityDataModel;
 import ru.karapetiandav.yamblzproject.ui.cities.model.CityViewModel;
-import ru.karapetiandav.yamblzproject.utils.CityUtils;
 
 public class CityMapper {
 
-    private CityUtils cityUtils;
-
-    public CityMapper(CityUtils cityUtils) {
-        this.cityUtils = cityUtils;
-    }
 
     @NonNull
     public List<CityViewModel> getViewModelList(@NonNull List<CityDataModel> dataModels) {
@@ -33,7 +27,7 @@ public class CityMapper {
         String cityId = String.valueOf(dataModel.getId());
         String cityInfo = dataModel.getCityName() +
                 ", " +
-                cityUtils.getCountryNameByCode(dataModel.getCountryCode());
+                dataModel.getCountryCode();
         return new CityViewModel(cityInfo, cityId);
     }
 

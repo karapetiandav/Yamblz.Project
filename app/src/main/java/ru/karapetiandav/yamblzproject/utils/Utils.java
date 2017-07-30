@@ -18,8 +18,8 @@ public class Utils {
         this.resources = resources;
     }
 
-    public String convertUnixTimeToString(long unixTime) {
-        Date date = new Date(unixTime * 1000);
+    public String convertUnixTimeToString(long timeInMillis) {
+        Date date = new Date(timeInMillis);
         return resources.getString(R.string.weather_fragment_today) + " " +
                 new SimpleDateFormat("d MMM").format(date);
     }
