@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import ru.karapetiandav.yamblzproject.R;
 import ru.karapetiandav.yamblzproject.ui.about.AboutFragment;
 import ru.karapetiandav.yamblzproject.ui.settings.SettingsFragment;
-import ru.karapetiandav.yamblzproject.ui.weather.WeatherFragment;
+import ru.karapetiandav.yamblzproject.ui.weather.view.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

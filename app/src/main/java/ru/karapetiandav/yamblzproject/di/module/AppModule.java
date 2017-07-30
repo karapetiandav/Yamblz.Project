@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 import ru.karapetiandav.yamblzproject.data.prefs.PreferenceHelper;
 import ru.karapetiandav.yamblzproject.data.prefs.PreferenceHelperImpl;
 import ru.karapetiandav.yamblzproject.utils.LanguageUtils;
@@ -45,6 +46,12 @@ public class AppModule {
     @NonNull
     RxSchedulers provideRxSchedulers() {
         return new RxSchedulersImpl();
+    }
+
+    @Provides
+    @NonNull
+    CompositeDisposable provideCompositeDisposable() {
+        return new CompositeDisposable();
     }
 
     @Provides

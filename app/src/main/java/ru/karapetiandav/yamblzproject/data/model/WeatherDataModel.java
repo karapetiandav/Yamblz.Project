@@ -69,4 +69,19 @@ public class WeatherDataModel {
                 ", time=" + time +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WeatherDataModel that = (WeatherDataModel) o;
+
+        if (weatherId != that.weatherId) return false;
+        if (Float.compare(that.temp, temp) != 0) return false;
+        if (Float.compare(that.pressure, pressure) != 0) return false;
+        if (humidity != that.humidity) return false;
+        return time == that.time;
+
+    }
 }
